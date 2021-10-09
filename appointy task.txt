@@ -31,6 +31,9 @@ type Post struct {
 
 func CreateUserEndpoint(response http.ResponseWriter, request *http.Request) {}
 func GetUserEndpoint(response http.ResponseWriter, request *http.Request)    {}
+func CreatePostEndpoint(response http.ResponseWriter, request *http.Request) {}
+func GetPostEndpoint(response http.ResponseWriter, request *http.Request)    {}
+
 
 //func GetPersonEndpoint(response http.ResponseWriter, request *http.Request) { }
 
@@ -49,7 +52,9 @@ func main() {
 	}
 	fmt.Printf("Found a single document: %+v\n", result)
 	router.HandleFunc("/users", CreateUserEndpoint).Methods("POST")
-	router.HandleFunc("/users", GetUserEndpoint).Methods("GET")
+	router.HandleFunc("/users/{ID}", GetUserEndpoint).Methods("GET")
+	router.HandleFunc("/posts", CreatePostEndpoint).Methods("POST")
+	router.HandleFunc("/posts/{ID}", GetPostEndpoint).Methods("GET")
 	//router.HandleFunc("/person/{id}", GetPersonEndpoint).Methods("GET")
 	http.ListenAndServe(":12345", router)
 
